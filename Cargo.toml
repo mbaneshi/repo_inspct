@@ -4,4 +4,5 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-git2 = "0.14"
+diesel = { version = "2.2.4", features = ["sqlite", "mysql", "postgres"] }
+dotenv = "0.15"
