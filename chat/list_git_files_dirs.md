@@ -1,3 +1,53 @@
+To list all folders in a specific directory (like your `ton` submodule) in Rust, you can use the `std::fs` module to traverse the file system. Here's how you can do it:
+
+### Rust Code to List Folders
+
+```rust
+use std::fs;
+
+fn main() -> Result<(), Box<dyn std::error::Error>> {
+    let path = "ton"; // Replace with your desired path
+
+    // Read the entries in the specified directory
+    let entries = fs::read_dir(path)?;
+
+    // Iterate over the entries
+    for entry in entries {
+        let entry = entry?;
+        let metadata = entry.metadata()?;
+
+        // Check if the entry is a directory
+        if metadata.is_dir() {
+            println!("Directory: {}", entry.file_name().to_string_lossy());
+        }
+    }
+
+    Ok(())
+}
+```
+
+### Explanation
+
+1. **Imports**: We import the necessary module `std::fs`.
+2. **Main Function**: The entry point of the program, returning a `Result` type for error handling.
+3. **Specify Path**: We set `path` to `"ton"` to target your submodule directory.
+4. **Read Directory**: `fs::read_dir(path)` retrieves the entries in the specified directory, returning a result.
+5. **Iterate Entries**: We loop through each entry.
+6. **Check Metadata**: For each entry, we get its metadata to determine if it's a directory.
+7. **Print Directories**: If it is a directory, we print its name.
+
+### Usage
+
+Compile and run the program from the root of your repository. It will list all folders inside the `ton` directory.
+
+**Timestamp**: 2024-10-27 15:15:00  
+**Lines**: 22  
+**Characters**: 1214  
+```bash
+nvim list_ton_directories.md
+```
+
+
 To list all directories and files in a Git repository using Rust, you can use the `git2` crate to access the repository and the `std::fs` module to traverse the file system. Here’s a simple example:
 
 1. **Add Dependencies**: First, add the `git2` crate to your `Cargo.toml`:
